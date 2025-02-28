@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import { FaUsers, FaRegCreditCard, FaRocket, FaHome, FaInfoCircle, FaList } from 'react-icons/fa';
  
 
@@ -13,7 +14,7 @@ export default function Landing() {
       
       {/* Navbar */}
       <nav className="fixed top-0 w-full bg-white text-gray-700 border-b border-gray-100 flex justify-between items-center p-3 z-50">
-        <img src="/logo.jpeg" className='h-16 rounded-lg' alt="CampusRide Logo"  />
+        <img src="/logo.jpeg" className='h-10 ml-3 md:h-16 rounded-lg' alt="CampusRide Logo"  />
         <div className="flex gap-6 mr-20">
           <a href="#home" className="text-blue-900 text-xl hover:text-purple-400 transition-all"><FaHome className="inline mr-2"/> Home</a>
           <a href="#about" className="text-blue-900 text-xl hover:text-purple-400 transition-all"><FaInfoCircle className="inline mr-2"/> About</a>
@@ -29,9 +30,13 @@ export default function Landing() {
         <p className="text-2xl text-black mt-4 max-w-4xl opacity-80">
           Drivoh is a modern transportation platform designed to make student commuting easier, safer, and more efficient. Book your rides seamlessly, track in real-time, and enjoy a smooth transportation experience tailored for students and faculty.
         </p>
-        <button className="mt-6 px-8 py-4 text-lg font-bold rounded-lg bg-gradient-to-r from-blue-900 to-blue-700 hover:scale-105 transition-all shadow-xl">
-          Get Started
-        </button>
+
+        <Link href="/register" passHref>
+          <button className="mt-6 px-8 py-4 text-lg font-bold rounded-lg bg-gradient-to-r from-blue-900 to-blue-700 hover:scale-105 transition-all shadow-xl">
+            Get Started
+          </button>
+        </Link>  
+
       </section>
       <div className='flex justify-around mt-[-20px]'>
          <img src="/b.gif" className='' alt="CampusRide Logo"  />
@@ -68,9 +73,11 @@ export default function Landing() {
       <section className="py-16 text-center relative bg-gradient-to-r from-gray-50 to-white text-white">
         <h2 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-500 text-6xl drop-shadow-lg">Join Drivoh Today</h2>
         <p className="mt-4 text-lg text-gray-800  ">Experience a smarter, safer way to travel within your campus.</p>
+        <Link href="/register" passHref>
         <button className="mt-6 px-8 py-4 text-lg font-bold rounded-lg bg-gradient-to-r from-blue-900 to-blue-700 hover:scale-105 transition-all shadow-xl">
           Sign Up Now!
         </button>
+        </Link>
       </section>
 
       {/* Footer */}
