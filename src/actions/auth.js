@@ -2,7 +2,7 @@
 
 import { LoginFormSchema, RegisterFormSchema } from "../app/lib/rules";
 import { getCollection } from "../app/lib/db";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { redirect } from "next/navigation";
 import { createSession } from "../app/lib/sessions";
 import { cookies } from "next/headers";
