@@ -19,6 +19,7 @@ export default async function Navbar() {
           />
         </Link>
 
+        <p className="text-black">{authUser.aud}</p>
         {authUser ? (
           <div className="lg:flex lg:items-center w-full lg:w-auto">
             <form

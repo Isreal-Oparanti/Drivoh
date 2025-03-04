@@ -1,5 +1,12 @@
 import { z } from "zod";
 
+export const BookingFormSchema = z.object({
+  from: z.string().min(1, { message: "Pick-up point is required" }),
+  to: z.string().min(1, { message: "Destination is required" }),
+  date: z.string().min(1, { message: "Date is required" }),
+  time: z.string().min(1, { message: "Time slot is required" }),
+});
+
 export const LoginFormSchema = z.object({
   email: z.string().email({ message: " Please enter a valid email" }).trim(),
   password: z.string().min(2, { message: "Password is required" }).trim(),
