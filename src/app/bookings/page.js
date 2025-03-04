@@ -2,35 +2,90 @@
 
 import { createBooking } from "@/src/actions/bookings";
 import { useActionState, useState } from "react";
+import dynamic from "next/dynamic";
+import { startTransition } from "react";
+
+const PaystackButton = dynamic(
+  () => import("react-paystack").then((mod) => mod.PaystackButton),
+  { ssr: false }
+);
 
 export default function Booking() {
-  const [state, action, isPending] = useActionState(createBooking, undefined);
+  const [state, action, isPending] = useActionState(
+    createBooking,
+    (prevState, result) => {
+      console.log("Booking Result:", result);
+      return result;
+    },
+    undefined
+  );
+
   const [fare, setFare] = useState("");
   const [formData, setFormData] = useState({ from: "", to: "" });
+  const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [paymentReference, setPaymentReference] = useState(null);
 
   const calculateFare = (from, to) => {
     if (from === "Gate" && to) {
-      return "300 Naira";
+      return 300 * 100; // Convert to kobo
     } else if (
       (from === "Oduduwa_Estate/Damico" || from === "AP/Mayfair") &&
       to
     ) {
-      return "500 Naira";
+      return 500 * 100; // Convert to kobo
     }
-    return "";
+    return 0;
   };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    const newFormData = { ...formData, [name]: value };
-    setFormData(newFormData);
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      [name]: value,
+    }));
 
-    if (newFormData.from && newFormData.to) {
-      const fareAmount = calculateFare(newFormData.from, newFormData.to);
+    if (name === "from" || name === "to") {
+      const fareAmount = calculateFare(
+        name === "from" ? value : formData.from,
+        name === "to" ? value : formData.to
+      );
       setFare(fareAmount);
-    } else {
-      setFare("");
     }
+  };
+
+  const paystackConfig = {
+    email: "bellobambo21@gmail.com",
+    amount: fare,
+    metadata: {
+      from: formData.from,
+      to: formData.to,
+    },
+    publicKey: process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY,
+    text: `Pay ₦ ${fare / 100} to Book Trip`,
+    onSuccess: (response) => {
+      setPaymentSuccess(true);
+      setPaymentReference(response.reference);
+
+      if (!formData.date || !formData.time) {
+        alert("Please select a date and time before proceeding.");
+        return;
+      }
+
+      const bookingData = {
+        from: formData.from,
+        to: formData.to,
+        date: formData.date,
+        time: formData.time,
+        amount: fare / 100,
+        paymentRef: response.reference,
+      };
+
+      startTransition(() => {
+        action(bookingData);
+      });
+    },
+
+    onClose: () => alert("Payment closed. Please complete your payment."),
   };
 
   return (
@@ -39,7 +94,7 @@ export default function Booking() {
         <h2 className="text-2xl font-bold mb-4 text-center text-primary">
           Book a Ride
         </h2>
-        <form action={action} className="space-y-4">
+        <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
           <div className="relative">
             <label className="block font-semibold">Pick-Up Point</label>
             <select
@@ -92,7 +147,9 @@ export default function Booking() {
                   .toISOString()
                   .split("T")[0]
               }
+              onChange={handleChange}
             />
+
             {state?.errors?.date && (
               <p className="text-sm text-red-600 mt-1">{state.errors.date}</p>
             )}
@@ -104,17 +161,19 @@ export default function Booking() {
               name="time"
               className="select select-bordered w-full outline-none p-3 rounded-md"
               required
+              onChange={handleChange}
             >
               <option value="">Select Time Slot</option>
-              <option value="7:00 AM">8:00 AM</option>
+              <option value="8:00 AM">8:00 AM</option>
               <option value="9:00 AM">9:00 AM</option>
-              <option value="12:00 PM">10:00 AM</option>
-              <option value="12:00 PM">1:00 PM</option>
-              <option value="12:00 PM">2:00 PM</option>
-              <option value="12:00 PM">4:00 PM</option>
-              <option value="12:00 PM">5:00 PM</option>
-              <option value="12:00 PM">6:00 PM</option>
+              <option value="10:00 AM">10:00 AM</option>
+              <option value="1:00 PM">1:00 PM</option>
+              <option value="2:00 PM">2:00 PM</option>
+              <option value="4:00 PM">4:00 PM</option>
+              <option value="5:00 PM">5:00 PM</option>
+              <option value="6:00 PM">6:00 PM</option>
             </select>
+
             {state?.errors?.time && (
               <p className="text-sm text-red-600 mt-1">{state.errors.time}</p>
             )}
@@ -124,15 +183,20 @@ export default function Booking() {
             <p className="text-sm text-red-600 mt-1">{state.errors.general}</p>
           )}
 
-          <button
-            type="submit"
-            disabled={isPending}
-            className="btn btn-primary bg-blue-800 outline-none text-white p-3 rounded-lg w-full text-lg font-bold"
-          >
-            {isPending
-              ? "Processing..."
-              : `Confirm Booking${fare ? ` - ${fare}` : ""}`}
-          </button>
+          {!paymentSuccess ? (
+            <PaystackButton
+              className="btn btn-primary bg-blue-800 outline-none text-white p-3 rounded-lg w-full text-lg font-bold"
+              {...paystackConfig}
+            />
+          ) : (
+            <button
+              type="submit"
+              disabled={isPending}
+              className="btn btn-primary bg-blue-800 outline-none text-white p-3 rounded-lg w-full text-lg font-bold"
+            >
+              {isPending ? "Processing..." : `Confirm Booking`}
+            </button>
+          )}
         </form>
       </div>
     </div>
