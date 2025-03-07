@@ -7,10 +7,10 @@ import { BookingFormSchema } from "../app/lib/rules";
 
 export async function createBooking(state, formData) {
   const validatedFields = BookingFormSchema.safeParse({
-    from: formData.get("from"),
-    to: formData.get("to"),
-    date: formData.get("date"),
-    time: formData.get("time"),
+    from: formData.from,
+    to: formData.to,
+    date: formData.date,
+    time: formData.time,
   });
 
   if (!validatedFields.success) {

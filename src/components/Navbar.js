@@ -19,13 +19,11 @@ export default async function Navbar() {
           />
         </Link>
 
+
         <p className="text-black">{authUser?.aud}</p>
-        {authUser ? (
-          <div className="lg:flex lg:items-center w-full lg:w-auto">
-            <form
-              action={logout}
-              className="flex flex-col lg:flex-row lg:space-x-6 mt-4 lg:mt-0"
-            >
+         {authUser ? (
+          <div className="flex items-center">
+            <form action={logout} className="ml-auto">
               <button className="text-black hover:text-gray-600">Logout</button>
             </form>
           </div>
