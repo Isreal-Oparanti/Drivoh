@@ -48,12 +48,7 @@ export default function Dashboard() {
           <Bookings />
         </section>
 
-        {/* Ride History */}
-        <section className="bg-white p-4 rounded shadow mb-4">
-          <h2 className="text-lg font-semibold mb-2">Ride History</h2>
-          <p className="text-gray-600">No completed rides yet.</p>
-        </section>
-
+        
         {/* Wallet Balance */}
         <section className="bg-white p-4 rounded shadow mb-4">
           <h2 className="text-lg font-semibold mb-2">Wallet Balance</h2>

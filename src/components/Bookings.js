@@ -8,9 +8,9 @@ export default async function Bookings() {
   if (!user || !user.userId) {
     console.error("User not authenticated.");
     return (
-      <div>
-        <h2 className="text-lg font-semibold mb-2">Upcoming Rides</h2>
-        <p className="text-gray-600">Please log in to view bookings.</p>
+      <div className="text-center">
+        <h2 className="text-lg font-semibold mb-2">Booking History</h2>
+        <p className="text-gray-600">Please log in to view your bookings.</p>
         <Link
           href="/login"
           className="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
@@ -21,52 +21,85 @@ export default async function Bookings() {
     );
   }
 
-  const bookingsCollections = await getCollection("bookings");
-  const allBookings = await bookingsCollections.find({}).toArray();
+  const bookingsCollection = await getCollection("bookings");
+  const allBookings = await bookingsCollection.find({}).toArray();
 
+  // Sort bookings by date (newest first)
   const sortedBookings = allBookings
-    ?.sort((a, b) => new Date(a.date) - new Date(b.date))
-    .slice(0, 5);
+    ?.sort((a, b) => new Date(b.date) - new Date(a.date))
+    .slice(0, 3);
 
-  console.log("All Bookings:", sortedBookings);
+  const hasMoreBookings = allBookings.length > 3;
 
-  if (sortedBookings && sortedBookings.length > 0) {
-    return (
-      <div className="space-y-4">
-        {sortedBookings.map((booking) => (
-          <div key={booking._id} className="p-4 rounded-lg">
-            <div className="space-y-1">
-              <div className="flex">
-                <p className="font-medium">From: {booking.from}</p>
-                <p className="font-medium">To: {booking.to}</p>
+  return (
+    <div className="max-w-2xl bg-white  rounded-lg p-2">
+      <h2 className="text-xl font-semibold mb-4 text-gray-800">Booking History</h2>
+
+      {sortedBookings.length > 0 ? (
+        <div className="space-y-4">
+          {sortedBookings.map((booking, index) => (
+            <div
+              key={booking._id}
+              className={`p-4 border rounded-lg shadow-sm ${
+                index === 0 ? "border-blue-500 bg-blue-50" : "bg-gray-50"
+              }`}
+            >
+              <div className="flex justify-between ">
+                <div>
+                  <p className="font-medium text-lg">
+                    {booking.from} → {booking.to}{" "}
+                    {index === 0 && <span className="text-blue-500 font-semibold">(Current Route)</span>}
+                  </p>
+                  <p className="text-sm text-gray-500">Date: {booking.date} | Time: {booking.time}</p>
+                  <p
+                    className={`text-sm font-semibold ${
+                      booking.status === "pending" ? "text-yellow-500" : "text-green-600"
+                    }`}
+                  >
+                    Status: {booking.status}
+                  </p>
+                </div>
               </div>
-              <div>
-                <p className="text-sm text-gray-600">Time: {booking.time}</p>
-                <p className="text-sm text-gray-600">Date: {booking.date}</p>
-              </div>
+
+              {/* Dummy Receipt for Completed Bookings */}
+              {booking.status === "pending" && (
+                <div className="mt-3 p-3 bg-green-100 border border-green-300 rounded">
+                  <p className="text-sm font-semibold text-green-700">Receipt</p>
+                  <p className="text-xs text-gray-600">Amount: ₦{(Math.random() * 5000 + 1000).toFixed(2)}</p>
+                  <p className="text-xs text-gray-600">Payment Method: Card</p>
+                  <p className="text-xs text-gray-600">Transaction ID: {Math.random().toString(36).substring(2, 12)}</p>
+                </div>
+              )}
             </div>
-          </div>
-        ))}
-        <div className="flex gap-4">
-          <Link href="/bookings">Book a Ride</Link>
-          <Link href="#" className="underline">
-            View More
-          </Link>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div>
-        <h2 className="text-lg font-semibold mb-2">Upcoming Rides</h2>
-        <p className="text-gray-600">No scheduled rides. Book a ride now!</p>
+          ))}
+
+          {/* View More Button */}
+          {hasMoreBookings && (
+            <div className="text-center mt-4">
+              <Link
+                href="/bookings"
+                className="px-5 py-2 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-100 transition"
+              >
+                View More History
+              </Link>
+            </div>
+          )}
+      <div className="mt-3 mb-2">
         <Link
-          href="/bookings"
-          className="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
+          href="/new-booking"
+          className="px-5  py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
         >
-          Book a Ride
+          + Book a Ride
         </Link>
       </div>
-    );
-  }
+
+        </div>
+
+      ) : (
+        <p className="text-gray-500 text-center">No bookings found.</p>
+      )}
+      
+    </div>
+    
+  );
 }
