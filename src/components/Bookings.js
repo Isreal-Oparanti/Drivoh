@@ -1,29 +1,48 @@
 import Link from "next/link";
 import { getCollection } from "../app/lib/db";
+import getAuthUser from "../app/lib/getAuthUser";
 
 export default async function Bookings() {
-  const bookingsCollections = await getCollection("bookings");
-  const posts = await bookingsCollections?.find().toArray();
+  const user = await getAuthUser();
 
-  const sortedPosts = posts
+  if (!user || !user.userId) {
+    console.error("User not authenticated.");
+    return (
+      <div>
+        <h2 className="text-lg font-semibold mb-2">Upcoming Rides</h2>
+        <p className="text-gray-600">Please log in to view bookings.</p>
+        <Link
+          href="/login"
+          className="inline-block mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg"
+        >
+          Login
+        </Link>
+      </div>
+    );
+  }
+
+  const bookingsCollections = await getCollection("bookings");
+  const allBookings = await bookingsCollections.find({}).toArray();
+
+  const sortedBookings = allBookings
     ?.sort((a, b) => new Date(a.date) - new Date(b.date))
     .slice(0, 5);
 
-  console.log("All bookings", sortedPosts);
+  console.log("All Bookings:", sortedBookings);
 
-  if (sortedPosts && sortedPosts.length > 0) {
+  if (sortedBookings && sortedBookings.length > 0) {
     return (
       <div className="space-y-4">
-        {sortedPosts.map((post) => (
-          <div key={post._id} className="p-4 rounded-lg">
+        {sortedBookings.map((booking) => (
+          <div key={booking._id} className="p-4 rounded-lg">
             <div className="space-y-1">
               <div className="flex">
-                <p className="font-medium">From: {post.from}</p>
-                <p className="font-medium">To: {post.to}</p>
+                <p className="font-medium">From: {booking.from}</p>
+                <p className="font-medium">To: {booking.to}</p>
               </div>
               <div>
-                <p className="text-sm text-gray-600">Time: {post.time}</p>
-                <p className="text-sm text-gray-600">Date: {post.date}</p>
+                <p className="text-sm text-gray-600">Time: {booking.time}</p>
+                <p className="text-sm text-gray-600">Date: {booking.date}</p>
               </div>
             </div>
           </div>
@@ -39,7 +58,7 @@ export default async function Bookings() {
   } else {
     return (
       <div>
-        <h2 className="text-lg font-semibold mb-2">Upcoming Ride</h2>
+        <h2 className="text-lg font-semibold mb-2">Upcoming Rides</h2>
         <p className="text-gray-600">No scheduled rides. Book a ride now!</p>
         <Link
           href="/bookings"
