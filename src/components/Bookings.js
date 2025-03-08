@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { getCollection } from "../app/lib/db";
 import getAuthUser from "../app/lib/getAuthUser";
+import { ObjectId } from "mongodb";
 
 export default async function Bookings() {
   const user = await getAuthUser();
@@ -22,30 +23,31 @@ export default async function Bookings() {
   }
 
   const bookingsCollection = await getCollection("bookings");
-  const allBookings = await bookingsCollection.find({}).toArray();
+  const allBookings = await bookingsCollection
+    .find({ userId: ObjectId.createFromHexString(user.userId) })
+    .sort({ createdAt: -1 })
+    .toArray();
 
-  const sortedBookings = allBookings
-    ?.sort((a, b) => new Date(b.date) - new Date(a.date))
-    .slice(0, 3);
+  console.log(allBookings);
 
   const hasMoreBookings = allBookings.length > 3;
 
   return (
-    <div className="max-w-2xl bg-white  rounded-lg p-2">
+    <div className="max-w-2xl bg-white rounded-lg p-2">
       <h2 className="text-xl font-semibold mb-4 text-gray-800">
         Booking History
       </h2>
 
-      {sortedBookings.length > 0 ? (
+      {allBookings.length > 0 ? (
         <div className="space-y-4">
-          {sortedBookings.map((booking, index) => (
+          {allBookings.map((booking, index) => (
             <div
               key={booking._id}
               className={`p-4 border rounded-lg shadow-sm ${
                 index === 0 ? "border-blue-500 bg-blue-50" : "bg-gray-50"
               }`}
             >
-              <div className="flex justify-between ">
+              <div className="flex justify-between">
                 <div>
                   <p className="font-medium text-lg">
                     {booking.from} → {booking.to}{" "}
@@ -56,7 +58,7 @@ export default async function Bookings() {
                     )}
                   </p>
                   <p className="text-sm text-gray-500">
-                    Date: {booking.date} | Time: {booking.time}
+                    Ride Date: {booking.date} | Time: {booking.time}
                   </p>
                   <p
                     className={`text-sm font-semibold ${
@@ -68,6 +70,7 @@ export default async function Bookings() {
                     Status: {booking.status}
                   </p>
                 </div>
+                <small>{booking.createdAt.toLocaleString()}</small>
               </div>
 
               {booking.status === "pending" && (
@@ -92,7 +95,7 @@ export default async function Bookings() {
             <div className="">
               <Link
                 href="/bookings"
-                className="px-5  py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+                className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
               >
                 + Book a Ride
               </Link>
@@ -108,7 +111,6 @@ export default async function Bookings() {
               </div>
             )}
           </div>
-          {/* View More Button */}
         </div>
       ) : (
         <p className="text-gray-500 text-center">No bookings found.</p>

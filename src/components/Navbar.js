@@ -10,22 +10,15 @@ export default async function Navbar() {
   return (
     <nav className="border border-orange-500 text-black p-4">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/">
-          <img
-            src="/logo.jpeg"
-            width={60}
-            alt="Logo"
-            className="text-2xl font-bold"
-          />
-        </Link>
-
-
         <p className="text-black">{authUser?.aud}</p>
-         {authUser ? (
-          <div className="flex items-center">
+        {authUser ? (
+          <div className="flex items-center gap-2">
             <form action={logout} className="ml-auto">
               <button className="text-black hover:text-gray-600">Logout</button>
             </form>
+            <Link href="/dashboard" className="text-black hover:text-gray-600">
+              Dashboard
+            </Link>
           </div>
         ) : (
           <div className="flex gap-4">

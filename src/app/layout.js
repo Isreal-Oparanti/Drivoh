@@ -1,6 +1,8 @@
+import Sidebar from "../components/Sidebar";
+
 export const metadata = {
-  title: "Home",
-  description: "Welcome to Next.js",
+  title: "Drivoh!",
+  description: "Campus Ride",
 };
 
 export default function RootLayout({ children }) {
@@ -14,7 +16,13 @@ export default function RootLayout({ children }) {
 
         <script src="https://cdn.jsdelivr.net/npm/daisyui@1.0.0-beta.8/dist/full.js"></script>
       </head>
-      <body>{children}</body>
+
+      <body>
+        <div className="flex">
+          <Sidebar />
+          <span className="w-full">{children}</span>
+        </div>
+      </body>
     </html>
   );
 }

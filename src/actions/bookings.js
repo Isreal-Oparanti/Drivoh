@@ -2,10 +2,14 @@
 
 import { getCollection } from "../app/lib/db";
 import { redirect } from "next/navigation";
-import { cookies } from "next/headers";
 import { BookingFormSchema } from "../app/lib/rules";
+import getAuthUser from "../app/lib/getAuthUser";
+import { ObjectId } from "mongodb";
 
 export async function createBooking(state, formData) {
+  const user = await getAuthUser();
+  if (!user) return redirect("/");
+
   const validatedFields = BookingFormSchema.safeParse({
     from: formData.from,
     to: formData.to,
@@ -21,15 +25,6 @@ export async function createBooking(state, formData) {
 
   const { from, to, date, time } = validatedFields.data;
 
-  const cookieStore = await cookies();
-  const session = cookieStore.get("session");
-
-  if (!session) {
-    return { errors: { session: "User not logged in." } };
-  }
-
-  const userId = session.value;
-
   const bookingCollection = await getCollection("bookings");
 
   if (!bookingCollection) {
@@ -37,7 +32,7 @@ export async function createBooking(state, formData) {
   }
 
   const results = await bookingCollection.insertOne({
-    userId,
+    userId: ObjectId.createFromHexString(user.userId),
     from,
     to,
     date,

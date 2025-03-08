@@ -10,10 +10,10 @@ import Bookings from "@/src/components/Bookings";
 
 export default function Dashboard() {
   return (
-    <div className="flex min-h-screen bg-base-200">
+    <div className="flex bg-base-200">
       {/* Sidebar for larger screens */}
-      <aside className="w-64 bg-white shadow-md p-4 hidden md:block">
-        <h2 className="text-xl font-bold mb-6">CampusRide</h2>
+      {/* <aside className="w-64 bg-white shadow-md p-4 hidden md:block">
+        <h2 className="text-xl font-bold mb-6">Drivoh!</h2>
         <nav className="space-y-2">
           <Link
             href="/dashboard"
@@ -27,17 +27,20 @@ export default function Dashboard() {
           >
             My Bookings
           </Link>
+          <Link
+            href="/bookings/history"
+            className="block p-2 rounded hover:bg-gray-100"
+          >
+            Transactions
+          </Link>
           <Link href="/current" className="block p-2 rounded hover:bg-gray-100">
             Current Route
           </Link>
           <Link href="/wallet" className="block p-2 rounded hover:bg-gray-100">
             Wallet
           </Link>
-          <Link href="/profile" className="block p-2 rounded hover:bg-gray-100">
-            Profile
-          </Link>
         </nav>
-      </aside>
+      </aside> */}
 
       <main className="flex-1 p-4 md:p-6">
         <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
