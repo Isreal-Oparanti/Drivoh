@@ -39,24 +39,14 @@ export default function Dashboard() {
         </nav>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 p-4 md:p-6">
         <h1 className="text-2xl font-bold mb-4">Dashboard</h1>
 
-        {/* Upcoming Rides */}
         <section className="bg-white p-4 rounded shadow mb-4">
           <Bookings />
         </section>
-
-        
-        {/* Wallet Balance */}
-        <section className="bg-white p-4 rounded shadow mb-4">
-          <h2 className="text-lg font-semibold mb-2">Wallet Balance</h2>
-          <p className="text-gray-600">₦0.00</p>
-        </section>
       </main>
 
-      {/* Bottom Navigation for mobile */}
       <nav className="fixed bottom-0 left-0 w-full bg-white shadow-md flex justify-around p-3 md:hidden">
         <Link
           href="/dashboard"
@@ -69,8 +59,7 @@ export default function Dashboard() {
           href="/bookings"
           className="flex flex-col items-center text-gray-600"
         >
-          <FiCalendar size={20} />
-          <span className="text-sm">Bookings</span>
+          <FiCalendar size={20} />x<span className="text-sm">Bookings</span>
         </Link>
         <Link
           href="/wallet"

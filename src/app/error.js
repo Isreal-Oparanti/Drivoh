@@ -1,13 +1,15 @@
 "use client";
+import { useEffect } from "react";
 
-const ErrorPage = () => {
+export default function Error({ error, reset }) {
+  useEffect(() => {
+    console.error(error);
+  }, [error]);
+
   return (
     <div>
-      <h1>Error</h1>
-      <p>{error.message}</p>
+      <h2>Something went wrong!</h2>
       <button onClick={() => reset()}>Try again</button>
     </div>
   );
-};
-
-export default ErrorPage;
+}

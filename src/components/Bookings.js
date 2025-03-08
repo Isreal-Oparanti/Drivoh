@@ -24,7 +24,6 @@ export default async function Bookings() {
   const bookingsCollection = await getCollection("bookings");
   const allBookings = await bookingsCollection.find({}).toArray();
 
-  // Sort bookings by date (newest first)
   const sortedBookings = allBookings
     ?.sort((a, b) => new Date(b.date) - new Date(a.date))
     .slice(0, 3);
@@ -33,7 +32,9 @@ export default async function Bookings() {
 
   return (
     <div className="max-w-2xl bg-white  rounded-lg p-2">
-      <h2 className="text-xl font-semibold mb-4 text-gray-800">Booking History</h2>
+      <h2 className="text-xl font-semibold mb-4 text-gray-800">
+        Booking History
+      </h2>
 
       {sortedBookings.length > 0 ? (
         <div className="space-y-4">
@@ -48,12 +49,20 @@ export default async function Bookings() {
                 <div>
                   <p className="font-medium text-lg">
                     {booking.from} → {booking.to}{" "}
-                    {index === 0 && <span className="text-blue-500 font-semibold">(Current Route)</span>}
+                    {index === 0 && (
+                      <span className="text-blue-500 font-semibold">
+                        (Current Route)
+                      </span>
+                    )}
                   </p>
-                  <p className="text-sm text-gray-500">Date: {booking.date} | Time: {booking.time}</p>
+                  <p className="text-sm text-gray-500">
+                    Date: {booking.date} | Time: {booking.time}
+                  </p>
                   <p
                     className={`text-sm font-semibold ${
-                      booking.status === "pending" ? "text-yellow-500" : "text-green-600"
+                      booking.status === "pending"
+                        ? "text-yellow-500"
+                        : "text-green-600"
                     }`}
                   >
                     Status: {booking.status}
@@ -61,45 +70,49 @@ export default async function Bookings() {
                 </div>
               </div>
 
-              {/* Dummy Receipt for Completed Bookings */}
               {booking.status === "pending" && (
                 <div className="mt-3 p-3 bg-green-100 border border-green-300 rounded">
-                  <p className="text-sm font-semibold text-green-700">Receipt</p>
-                  <p className="text-xs text-gray-600">Amount: ₦{(Math.random() * 5000 + 1000).toFixed(2)}</p>
+                  <p className="text-sm font-semibold text-green-700">
+                    Receipt
+                  </p>
+                  <p className="text-xs text-gray-600">
+                    Amount: ₦{(Math.random() * 5000 + 1000).toFixed(2)}
+                  </p>
                   <p className="text-xs text-gray-600">Payment Method: Card</p>
-                  <p className="text-xs text-gray-600">Transaction ID: {Math.random().toString(36).substring(2, 12)}</p>
+                  <p className="text-xs text-gray-600">
+                    Transaction ID:{" "}
+                    {Math.random().toString(36).substring(2, 12)}
+                  </p>
                 </div>
               )}
             </div>
           ))}
 
-          {/* View More Button */}
-          {hasMoreBookings && (
-            <div className="text-center mt-4">
+          <div className="flex items-center gap-3 mt-2">
+            <div className="">
               <Link
                 href="/bookings"
-                className="px-5 py-2 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-100 transition"
+                className="px-5  py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
               >
-                View More History
+                + Book a Ride
               </Link>
             </div>
-          )}
-      <div className="mt-3 mb-2">
-        <Link
-          href="/new-booking"
-          className="px-5  py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
-        >
-          + Book a Ride
-        </Link>
-      </div>
-
+            {hasMoreBookings && (
+              <div className="text-center">
+                <Link
+                  href="/bookings/history"
+                  className="px-5 py-2 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-100 transition"
+                >
+                  View More History
+                </Link>
+              </div>
+            )}
+          </div>
+          {/* View More Button */}
         </div>
-
       ) : (
         <p className="text-gray-500 text-center">No bookings found.</p>
       )}
-      
     </div>
-    
   );
 }

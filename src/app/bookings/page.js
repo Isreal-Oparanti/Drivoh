@@ -27,12 +27,12 @@ export default function Booking() {
 
   const calculateFare = (from, to) => {
     if (from === "Gate" && to) {
-      return 300 * 100; // Convert to kobo
+      return 300 * 100;
     } else if (
       (from === "Oduduwa_Estate/Damico" || from === "AP/Mayfair") &&
       to
     ) {
-      return 500 * 100; // Convert to kobo
+      return 500 * 100;
     }
     return 0;
   };
