@@ -95,7 +95,8 @@ export default async function Bookings() {
             <div className="">
               <Link
                 href="/bookings"
-                className="px-5 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+                className="px-5 py-2 bg-teal-600   text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+                 style={{backgroundColor: "teal"}}
               >
                 + Book a Ride
               </Link>

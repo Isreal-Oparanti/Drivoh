@@ -95,11 +95,11 @@ export default function Booking() {
           Book a Ride
         </h2>
         <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-          <div className="relative">
-            <label className="block font-semibold">Pick-Up Point</label>
+          <div className="">
+            <label className="font-semibold">Pick-Up Point</label>
             <select
               name="from"
-              className="select select-bordered w-full outline-none p-3 rounded-md"
+              className="select select-bordered w-full outline-none p-3 rounded-md text-sm"
               onChange={handleChange}
               required
             >
@@ -140,7 +140,7 @@ export default function Booking() {
               type="date"
               name="date"
               className="input input-bordered w-full outline-none p-3 rounded-md bg-gray-200"
-              required
+              required  
               min={new Date().toISOString().split("T")[0]}
               max={
                 new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
@@ -192,7 +192,8 @@ export default function Booking() {
             <button
               type="submit"
               disabled={isPending}
-              className="btn btn-primary bg-blue-800 outline-none text-white p-3 rounded-lg w-full text-lg font-bold"
+              className="btn btn-primary outline-none text-white p-3 rounded-lg w-full text-lg font-bold"
+              style={{backgroundColor: "teal"}}
             >
               {isPending ? "Processing..." : `Confirm Booking`}
             </button>

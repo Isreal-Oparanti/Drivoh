@@ -13,7 +13,7 @@ import Navbar from "../components/Navbar";
 export default function Landing() {
   return (
     <div className="min-h-screen  text-white relative overflow-hidden">
-      <div className="absolute inset-0 grid grid-cols-8 gap-4 opacity-10 pr-3 pl-3 z-[-10] pointer-events-none">
+      <div className="absolute mt-10 inset-0 grid grid-cols-8 gap-4 opacity-10 pr-3 pl-3 z-[-10] pointer-events-none">
         {Array.from({ length: 144 }).map((_, i) => (
           <div
             key={i}
@@ -30,8 +30,12 @@ export default function Landing() {
         id="home"
         className="relative flex flex-col justify-center items-center text-center mt-32 "
       >
-        <h1 className="text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-500 drop-shadow-lg">
-          Drivoh: Smarter, Faster, Safer
+        <h1 
+            className="text-6xl teal font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-orange-900 to-orange-500 drop-shadow-lg"
+            style={{backgroundColor: "teal"}}  
+          >
+            
+          Driveoh: Smarter, Faster, Safer
         </h1>
         <p className="text-2xl text-black mt-4 max-w-4xl opacity-80">
           Drivoh is a modern transportation platform designed to make student
@@ -41,7 +45,10 @@ export default function Landing() {
         </p>
 
         <Link href="/register" passHref>
-          <button className="mt-6 px-8 py-4 text-lg font-bold rounded-lg bg-gradient-to-r from-blue-900 to-blue-700 hover:scale-105 transition-all shadow-xl">
+          <button 
+          className="mt-6 px-8 py-4 text-lg font-bold rounded-lg bg-gradient-to-r   hover:scale-105 transition-all shadow-xl"
+          style={{backgroundColor: "teal"}}
+          >
             Get Started
           </button>
         </Link>
@@ -56,7 +63,9 @@ export default function Landing() {
         id="about"
         className="py-28  px-6  relative bg-white rounded-lg m-3 text-white text-center"
       >
-        <h2 className="text-4xl font-semibold text-purple-400 drop-shadow-lg">
+        <h2 className="text-4xl font-semibold text-purple-400 drop-shadow-lg"
+        style={{color: "teal"}}
+        >
           Our Mission
         </h2>
         <p className="mt-4 text-2xl max-w-4xl text-gray-700 mx-auto text-lg">
@@ -70,10 +79,14 @@ export default function Landing() {
 
       {/* Features Section */}
       <section id="features" className="py-16 px-6 relative">
-        <h2 className="text-4xl font-semibold text-center text-purple-400 drop-shadow-lg">
+        <h2 className="text-4xl font-semibold text-center text-purple-400 drop-shadow-lg"
+        style={{color: "teal"}}
+        >
           Key Features
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10 text-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10 text-center"
+          
+        >
           {[
             {
               icon: <FaUsers />,
@@ -112,14 +125,18 @@ export default function Landing() {
 
       {/* Call to Action */}
       <section className="py-16 text-center relative bg-gradient-to-r from-gray-50 to-white text-white">
-        <h2 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-500 text-6xl drop-shadow-lg">
+        <h2 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-500 text-6xl drop-shadow-lg"
+        style={{color: "teal"}}
+        >
           Join Drivoh Today
         </h2>
         <p className="mt-4 text-lg text-gray-800  ">
           Experience a smarter, safer way to travel within your campus.
         </p>
         <Link href="/register" passHref>
-          <button className="mt-6 px-8 py-4 text-lg font-bold rounded-lg bg-gradient-to-r from-blue-900 to-blue-700 hover:scale-105 transition-all shadow-xl">
+          <button className="mt-6 px-8 py-4 text-lg font-bold rounded-lg bg-gradient-to-r   hover:scale-105 transition-all shadow-xl"
+          style={{backgroundColor: "teal"}}
+          >
             Sign Up Now!
           </button>
         </Link>

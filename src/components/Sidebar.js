@@ -4,15 +4,15 @@ import React from "react";
 const Sidebar = () => {
   return (
     <div>
-      <aside className="w-64 bg-white shadow-md p-4 hidden md:block h-screen">
-        <Link href="/">
+      <aside className=" w-64 bg-white border border-t-0 p-4 hidden md:block h-screen">
+        {/* <Link href="/">
           <img
             src="/logo.jpeg"
             width={60}
             alt="Logo"
             className="text-2xl font-bold mb-4"
           />
-        </Link>
+        </Link> */}
         <nav className="space-y-2">
           <Link
             href="/dashboard"

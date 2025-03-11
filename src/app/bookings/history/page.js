@@ -53,6 +53,10 @@ export default function HistoryPage() {
               className="p-4 border rounded-lg shadow-sm cursor-pointer bg-gray-50"
               onClick={() => openModal(booking)}
             >
+    
+    
+    
+    
               <p className="font-medium text-lg">
                 {booking.from} → {booking.to}
               </p>

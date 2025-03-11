@@ -5,3 +5,6 @@
 @layer components {
   /* Custom components or DaisyUI components can go here */
 }
+.teal{
+  background-color: teal;
+}

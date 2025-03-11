@@ -8,8 +8,16 @@ export default async function Navbar() {
   console.log(authUser);
 
   return (
-    <nav className="border border-orange-500 text-black p-4">
-      <div className="container mx-auto flex justify-between items-center">
+    <nav className="bg-white border border-orange-500 text-black p-4">
+      <div className="bg-white container mx-auto flex justify-between items-center">
+      <Link href="/">
+          <img
+            src="/logo.jpeg"
+            width={70}
+            alt="Logo"
+            className="text-4xl font-bold mb-4"
+          />
+        </Link>
         <p className="text-black">{authUser?.aud}</p>
         {authUser ? (
           <div className="flex items-center gap-2">
