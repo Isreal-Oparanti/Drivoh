@@ -31,16 +31,21 @@ const UserDetails = () => {
   return (
     <div>
       {user ? (
-        <div>
-          <p>
-            <strong>Name:</strong> {user.name}
-          </p>
-          <p>
-            <strong>Email:</strong> {user.email}
-          </p>
+        <div className="flex justify-center items-center">
+          <div
+            style={{ backgroundColor: "teal" }}
+            className="w-10 h-10  text-white rounded-full flex items-center justify-center text-lg font-semibold"
+          >
+            {user.name
+              .split(" ")
+              .map((word) => word.charAt(0).toUpperCase())
+              .join("")}
+          </div>
         </div>
       ) : (
-        <p>Loading user details...</p>
+        <div className="flex justify-center items-center">
+          <div className="w-10 h-10 border-4 border-t-4 border-teal-600 border-solid rounded-full animate-spin"></div>
+        </div>
       )}
     </div>
   );

@@ -35,7 +35,7 @@ export default async function Bookings() {
   return (
     <div className="max-w-2xl bg-white rounded-lg p-2">
       <h2 className="text-xl font-semibold mb-4 text-gray-800">
-        Booking History
+        Recent Bookings
       </h2>
 
       {allBookings.length > 0 ? (
@@ -52,7 +52,10 @@ export default async function Bookings() {
                   <p className="font-medium text-lg">
                     {booking.from} → {booking.to}{" "}
                     {index === 0 && (
-                      <span className="text-blue-500 font-semibold">
+                      <span
+                        style={{ color: "teal" }}
+                        className=" font-semibold"
+                      >
                         (Current Route)
                       </span>
                     )}
@@ -62,7 +65,7 @@ export default async function Bookings() {
                   </p>
                   <p
                     className={`text-sm font-semibold ${
-                      booking.status === "pending"
+                      booking.status === "Pending"
                         ? "text-yellow-500"
                         : "text-green-600"
                     }`}
@@ -96,7 +99,7 @@ export default async function Bookings() {
               <Link
                 href="/bookings"
                 className="px-5 py-2 bg-teal-600   text-white rounded-lg shadow-md hover:bg-blue-700 transition"
-                 style={{backgroundColor: "teal"}}
+                style={{ backgroundColor: "teal" }}
               >
                 + Book a Ride
               </Link>

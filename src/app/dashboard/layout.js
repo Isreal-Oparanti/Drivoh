@@ -6,11 +6,10 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <div className="flex">
-         <Sidebar/>
-         <main className="flex-1">{children}</main>
+      <div className="flex bg-gray-100">
+        <Sidebar />
+        <main className="flex-1">{children}</main>
       </div>
-      
     </>
   );
 };

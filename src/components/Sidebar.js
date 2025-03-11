@@ -33,7 +33,7 @@ const Sidebar = () => {
             Transactions
           </Link>
           <Link href="/current" className="block p-2 rounded hover:bg-gray-100">
-            Current Route
+            Profile{" "}
           </Link>
         </nav>
       </aside>
