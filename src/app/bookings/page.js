@@ -90,8 +90,8 @@ export default function Booking() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-base-200 p-4">
-      <div className="card w-full max-w-md shadow-xl p-6 bg-white rounded-lg">
-        <h2 className="text-2xl font-bold mb-4 text-center text-primary">
+      <div className="w-full max-w-md shadow-xl p-6 bg-white rounded-lg">
+        <h2 className="text-2xl font-bold mb-4 text-center text-primary" style={{color: "teal"}}>
           Book a Ride
         </h2>
         <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
@@ -186,6 +186,7 @@ export default function Booking() {
           {!paymentSuccess ? (
             <PaystackButton
               className="btn btn-primary bg-blue-800 outline-none text-white p-3 rounded-lg w-full text-lg font-bold"
+              style={{backgroundColor: "teal"}}
               {...paystackConfig}
             />
           ) : (

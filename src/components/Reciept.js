@@ -29,10 +29,10 @@ export default function Receipt({ booking }) {
         border: "2px solid transparent",
         borderRadius: "8px",
         boxShadow: "0 0 10px rgba(0, 0, 0, 0.1)",
-        backgroundImage: `
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M0 10 Q 5 5, 10 10 T 20 10' stroke='%23CBD5E0' fill='none' stroke-width='2'/%3E%3C/svg%3E"),
-        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M0 10 Q 5 15, 10 10 T 20 10' stroke='%23CBD5E0' fill='none' stroke-width='2'/%3E%3C/svg%3E")
-      `,
+    //     backgroundImage: `
+    //     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M0 10 Q 5 5, 10 10 T 20 10' stroke='%23CBD5E0' fill='none' stroke-width='2'/%3E%3C/svg%3E"),
+    //     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 20 20'%3E%3Cpath d='M0 10 Q 5 15, 10 10 T 20 10' stroke='%23CBD5E0' fill='none' stroke-width='2'/%3E%3C/svg%3E")
+    //   `,
         backgroundPosition: "left top, left bottom",
         backgroundRepeat: "repeat-x",
       }}
@@ -75,9 +75,9 @@ export default function Receipt({ booking }) {
         </div>
       </div>
 
-      <div className="border-t pt-4 mt-4 text-center text-sm text-gray-500">
-        <p>Need Help? Contact Support</p>
-        <p>Drivoh! © {new Date().getFullYear()}</p>
+      <div className="border-t pt-1 mt-3 text-center text-sm text-gray-500">
+        {/* <p>Need Help? Contact Support</p>
+        <p>Drivoh! © {new Date().getFullYear()}</p> */}
       </div>
 
       <button

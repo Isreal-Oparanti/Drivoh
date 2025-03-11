@@ -80,36 +80,38 @@ export default function Landing() {
       {/* Features Section */}
       <section id="features" className="py-16 px-6 relative">
         <h2 className="text-4xl font-semibold text-center text-purple-400 drop-shadow-lg"
-        style={{color: "teal"}}
+         style={{color: "teal"}}
         >
           Key Features
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-10 text-center"
-          
+           
         >
           {[
             {
               icon: <FaUsers />,
               title: "User-Friendly Dashboard",
               desc: "Easily manage bookings and track rides with a clean and intuitive dashboard.",
-              color: "bg-blue-900",
+               
+              border: "bg-blue-900",
             },
             {
               icon: <FaRegCreditCard />,
               title: "Secure Payments",
               desc: "Make quick and safe transactions with multiple payment options.",
-              color: "bg-blue-900",
+             
             },
             {
               icon: <FaRocket />,
               title: "Instant Booking",
               desc: "Get a ride in just a few taps with our seamless booking system.",
-              color: "bg-blue-900",
+              
             },
           ].map((feature, index) => (
             <div
               key={index}
               className={`${feature.color} p-8 rounded-lg shadow-xl transform hover:scale-105 transition-all`}
+              style={{backgroundColor: "teal"}}
             >
               <div className="text-5xl mx-auto text-white flex justify-center">
                 {feature.icon}
@@ -125,8 +127,9 @@ export default function Landing() {
 
       {/* Call to Action */}
       <section className="py-16 text-center relative bg-gradient-to-r from-gray-50 to-white text-white">
-        <h2 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-900 to-blue-500 text-6xl drop-shadow-lg"
+        <h2 className="font-extrabold text-transparent bg-clip-text bg-gradient-to-r  text-6xl drop-shadow-lg"
         style={{color: "teal"}}
+        
         >
           Join Drivoh Today
         </h2>
@@ -134,7 +137,7 @@ export default function Landing() {
           Experience a smarter, safer way to travel within your campus.
         </p>
         <Link href="/register" passHref>
-          <button className="mt-6 px-8 py-4 text-lg font-bold rounded-lg bg-gradient-to-r   hover:scale-105 transition-all shadow-xl"
+          <button className="mt-6 px-8 py-4 text-lg outline-none font-bold rounded-lg hover:scale-105 transition-all shadow-xl"
           style={{backgroundColor: "teal"}}
           >
             Sign Up Now!
@@ -143,7 +146,7 @@ export default function Landing() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 text-center bg-blue-950 border-t text-gray-400">
+      <footer className="py-8 text-center bg-blue-950 border-t text-gray-600">
         <p>© 2025 Drivoh. All rights reserved.</p>
       </footer>
     </div>

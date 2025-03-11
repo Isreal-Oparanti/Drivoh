@@ -1,11 +1,15 @@
 import Navbar from "@/src/components/Navbar";
+import Sidebar from "@/src/components/Sidebar";
 import React from "react";
 
 const Layout = ({ children }) => {
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <div className="flex">
+         <Sidebar/>
+         <main className="flex-1 p-4">{children}</main>
+      </div>   
     </>
   );
 };

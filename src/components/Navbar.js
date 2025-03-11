@@ -8,37 +8,39 @@ export default async function Navbar() {
   console.log(authUser);
 
   return (
-    <nav className="bg-white border border-orange-500 text-black p-4">
-      <div className="bg-white container mx-auto flex justify-between items-center">
+    <nav className="bg-white border border-orange-500 text-black p-4" style={{backgroundColor: "white"}}>
+      <div className=" container mx-auto flex justify-between items-center">
       <Link href="/">
           <img
             src="/logo.jpeg"
-            width={70}
+            width={90}
             alt="Logo"
-            className="text-4xl font-bold mb-4"
+            className="text-4xl font-bold rounded-lg"
           />
         </Link>
         <p className="text-black">{authUser?.aud}</p>
         {authUser ? (
           <div className="flex items-center gap-2">
             <form action={logout} className="ml-auto">
-              <button className="text-black hover:text-gray-600">Logout</button>
+              <button className="text-black outline-none p-2 pl-4 pr-4 rounded-lg hover:text-gray-600" style={{border: "2px solid teal", color: "teal"}}>Logout</button>
             </form>
-            <Link href="/dashboard" className="text-black hover:text-gray-600">
+            {/* <Link href="/dashboard" className="text-black hover:text-gray-600">
               Dashboard
-            </Link>
+            </Link> */}
           </div>
         ) : (
           <div className="flex gap-4">
             <a
               href="/login"
-              className="text-black hover:text-gray-600 mr-[20px]"
+              className="outline-none p-2 pl-4 pr-4 rounded-lg hover:text-teal-600 mr-[20px]"
+              style={{border: "2px solid teal", color: "teal"}}
             >
               Login
             </a>
             <a
               href="/register"
-              className="text-black hover:text-gray-600 ml-[20px]"
+              className="outline-none  p-2 pl-4 pr-4 rounded-lg border-teal-300 hover:text-gray-600 ml-[20px]"
+              style={{border: "2px solid teal", color: "teal"}}
             >
               Register
             </a>

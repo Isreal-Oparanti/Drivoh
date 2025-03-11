@@ -11,10 +11,12 @@ export default function Register() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-gray-100 to-white p-4">
       <div className="w-full max-w-md bg-white p-8 rounded-2xl shadow-2xl">
-        <h2 className="text-3xl font-bold text-center text-blue-900">
+        <h2 className="text-3xl font-bold text-center"
+         style={{color: "teal"}}
+        >
           Create an Account
         </h2>
-        <form action={action} className="mt-6 space-y-6">
+        <form action={action} className="mt-6 space-y-4">
           {/* Name Input */}
           <div className="relative">
             <input
@@ -105,7 +107,8 @@ export default function Register() {
           <button
             type="submit"
             disabled={isPending}
-            className="w-full py-3 text-lg font-bold text-white bg-gradient-to-r from-blue-900 to-blue-700 rounded-lg hover:scale-105 transition-transform shadow-lg"
+            className="w-full py-3 text-lg font-bold text-white  rounded-lg hover:scale-105 transition-transform shadow-lg"
+            style={{backgroundColor: "teal"}}
           >
             {isPending ? "Loading..." : "Register"}
           </button>
@@ -114,7 +117,10 @@ export default function Register() {
         {/* Login Link */}
         <p className="text-center text-gray-600 mt-4">
           Already have an account?{" "}
-          <a href="/login" className="text-blue-900 font-bold hover:underline">
+          <a href="/login" className=" font-bold hover:underline"
+            style={{color: "teal"}}
+          >
+          
             Login
           </a>
         </p>
