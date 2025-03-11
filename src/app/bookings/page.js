@@ -143,7 +143,7 @@ export default function Booking() {
               >
                 <option value="">Select Destination</option>
                 <option value="SUB">SUB</option>
-                <option value="Ajose">ICT</option>
+                <option value="Ajose">AJOSE</option>
                 <option value="PG">PG Hall</option>
                 <option value="New_Market">New Market</option>
               </select>
