@@ -1,10 +1,11 @@
 "use client";
 
 import { createBooking } from "@/src/actions/bookings";
-import { useActionState, useState } from "react";
+import { useActionState, useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { startTransition } from "react";
 import { useRouter } from "next/navigation";
+import Receipt from "@/src/components/Reciept";
 
 const PaystackButton = dynamic(
   () => import("react-paystack").then((mod) => mod.PaystackButton),
@@ -21,15 +22,21 @@ export default function Booking() {
     undefined
   );
 
+  const [selectedBooking, setSelectedBooking] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [bookings, setBookings] = useState([]);
+
   const [fare, setFare] = useState("");
   const [formData, setFormData] = useState({ from: "", to: "" });
   const [paymentSuccess, setPaymentSuccess] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   const [paymentReference, setPaymentReference] = useState(null);
   const router = useRouter();
 
   const calculateFare = (from, to) => {
     if (from === "Gate" && to) {
-      return 300 * 100;
+      return 250 * 100;
     } else if (
       (from === "Oduduwa_Estate/Damico" || from === "AP/Mayfair") &&
       to
@@ -54,6 +61,26 @@ export default function Booking() {
       setFare(fareAmount);
     }
   };
+
+  useEffect(() => {
+    async function fetchBookings() {
+      setLoading(true);
+      try {
+        const response = await fetch("/api/bookings", { method: "GET" });
+        if (!response.ok) {
+          throw new Error("Failed to fetch bookings");
+        }
+        const data = await response.json();
+        console.log("Fetched bookings:", data);
+        setBookings(data.bookings);
+      } catch (error) {
+        console.error("Failed to fetch bookings:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchBookings();
+  }, []);
 
   const paystackConfig = {
     email: "bellobambo21@gmail.com",
@@ -81,6 +108,9 @@ export default function Booking() {
         amount: fare / 100,
         paymentRef: response.reference,
       };
+
+      setSelectedBooking(bookingData); // Set the selected booking data
+      setIsModalOpen(true); // Open the modal
 
       startTransition(() => {
         action(bookingData);
@@ -221,6 +251,22 @@ export default function Booking() {
           </form>
         </div>
       </div>
+
+      {isModalOpen && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg w-full max-w-md">
+            <Receipt booking={selectedBooking} />
+            <a
+              href="/dashboard"
+              className="w-full mt-4 px-4 py-2  text-white rounded-lg flex items-center justify-center bg-red-500 bg-red-700 transition"
+
+              // onClick={closeModal}
+            >
+              Close
+            </a>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

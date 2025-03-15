@@ -26,11 +26,12 @@ export default async function Bookings() {
   const allBookings = await bookingsCollection
     .find({ userId: ObjectId.createFromHexString(user.userId) })
     .sort({ createdAt: -1 })
+    .limit(5)
     .toArray();
 
   console.log(allBookings);
 
-  const hasMoreBookings = allBookings.length > 3;
+  const hasMoreBookings = allBookings.length > 4;
 
   return (
     <div className="max-w-2xl bg-white rounded-lg p-2">
@@ -93,32 +94,32 @@ export default async function Bookings() {
               )}
             </div>
           ))}
-
-          <div className="flex items-center gap-3 mt-2">
-            <div className="">
-              <Link
-                href="/bookings"
-                className="px-5 py-2 bg-teal-600   text-white rounded-lg shadow-md hover:bg-blue-700 transition"
-                style={{ backgroundColor: "teal" }}
-              >
-                + Book a Ride
-              </Link>
-            </div>
-            {hasMoreBookings && (
-              <div className="text-center">
-                <Link
-                  href="/bookings/history"
-                  className="px-5 py-2 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-100 transition"
-                >
-                  View More History
-                </Link>
-              </div>
-            )}
-          </div>
         </div>
       ) : (
         <p className="text-gray-500 text-center">No bookings found.</p>
       )}
+
+      <div className="flex items-center gap-3 mt-2">
+        <div className="mt-3">
+          <Link
+            href="/bookings"
+            className="px-5 py-2 bg-teal-600   text-white rounded-lg shadow-md hover:bg-blue-700 transition"
+            style={{ backgroundColor: "teal" }}
+          >
+            + Book a Ride
+          </Link>
+        </div>
+        {hasMoreBookings && (
+          <div className="text-center">
+            <Link
+              href="/bookings/history"
+              className="px-5 py-2 border border-gray-400 text-gray-700 rounded-lg hover:bg-gray-100 transition"
+            >
+              View More History
+            </Link>
+          </div>
+        )}
+      </div>
     </div>
   );
 }

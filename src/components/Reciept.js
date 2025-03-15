@@ -70,11 +70,11 @@ export default function Receipt({ booking }) {
         <div className="border-t pt-4 mt-4">
           <div className="flex justify-between">
             <p className="text-sm font-semibold text-gray-700">Vehicle:</p>
-            <p className="text-sm">{booking.vehicle || "Unknown"}</p>
+            <p className="text-sm">{booking.vehicle || "Coaster Bus"}</p>
           </div>
           <div className="flex justify-between">
             <p className="text-sm text-gray-500">Driver:</p>
-            <p className="text-sm">{booking.driver || "N/A"}</p>
+            <p className="text-sm">{booking.driver || "Mr Lagbaja"}</p>
           </div>
         </div>
       </div>
